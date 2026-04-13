@@ -17,7 +17,11 @@ function help() {
 }
 
 function activate() {
+	UPDATE=0
 	if [ ! -f $VENV_PATH ] || [ "$1" == "--force" ]; then
+		UPDATE=1
+	fi
+	if [ $UPDATE -eq 1 ]; then
 		deactivate
 		rm -rf $VENV_PATH
 		python3 -m venv $VENV_PATH
@@ -25,7 +29,7 @@ function activate() {
 
 	source "$VENV_PATH/bin/activate"
 
-	if [ ! -f $VENV_PATH ] || [ "$1" == "--force" ]; then
+	if [ $UPDATE -eq 1 ]; then
 		echo $ROOT_PASSWORD | sudo -S apt install -y python3-pip
 		pip3 install dsw-tdk
 	fi

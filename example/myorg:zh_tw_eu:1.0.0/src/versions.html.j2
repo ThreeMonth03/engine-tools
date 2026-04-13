@@ -1,0 +1,32 @@
+<div id="dmp-versions">
+  <table>
+    <thead>
+      <tr>
+        {#<th colspan="3" class="title">History of changes</th>#}
+        <th colspan="3" class="title">變更歷史</th>
+      </tr>
+      <tr>
+        {#<th>Version</th>#}
+        <th>版本</th>
+        {#<th>Publication date</th>#}
+        <th>發布日期</th>
+        {#<th>Changes</th>#}
+        <th>變更</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for version in dc.qtn.versions|reverse %}
+        <tr>
+          <td class="version-name">{{ version.name }}</td>
+          <td class="version-date">{{ version.created_at|datetime_format("%d %b %Y") }}</td>
+          <td class="version-changes">{{ version.description }}</td>
+        </tr>
+      {% else %}
+        <tr>
+          {#<td colspan="3" class="no-versions">There are no named versions</tr>#}
+          <td colspan="3" class="no-versions">尚無命名版本</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
